@@ -66,6 +66,11 @@ class BorderRadiusOptionsControl extends BaseControl<BorderRadiusOptionsControlP
   }
 
   public render() {
+    // IMPORTANT: Using propertyValue instead of evaluatedValue ensures this is a controlled component
+    // that always reflects the current widget property state. This is critical for nested properties
+    // like submitButtonStyles.borderRadius in JSONForm widget to update the UI when property changes.
+    // evaluatedValue may not trigger rerenders for nested properties, causing the selector to show
+    // stale values even when the widget updates correctly.
     return (
       <SegmentedControl
         isFullWidth={false}
@@ -78,7 +83,7 @@ class BorderRadiusOptionsControl extends BaseControl<BorderRadiusOptionsControlP
         }}
         options={options}
         ref={this.componentRef}
-        value={this.props.evaluatedValue || ""}
+        value={this.props.propertyValue || ""}
       />
     );
   }

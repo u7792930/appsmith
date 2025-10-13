@@ -697,11 +697,27 @@ export const styleConfig = [
   {
     sectionName: "Submit button styles",
     children: generateButtonStyleControlsV2For("submitButtonStyles"),
+    // Dependencies ensure property pane rerenders when button style properties change.
+    // This is critical for Border Radius and Box Shadow controls to reflect the correct selection.
+    dependencies: [
+      "submitButtonStyles.borderRadius",
+      "submitButtonStyles.boxShadow",
+      "submitButtonStyles.buttonColor",
+      "submitButtonStyles.buttonVariant",
+    ],
   },
   {
     sectionName: "Reset button styles",
     children: generateButtonStyleControlsV2For("resetButtonStyles"),
-    dependencies: ["showReset"],
+    // Dependencies include showReset to control visibility, plus all button style properties
+    // to ensure property pane rerenders when any button style changes.
+    dependencies: [
+      "showReset",
+      "resetButtonStyles.borderRadius",
+      "resetButtonStyles.boxShadow",
+      "resetButtonStyles.buttonColor",
+      "resetButtonStyles.buttonVariant",
+    ],
     hidden: (props: JSONFormWidgetProps) => !props.showReset,
   },
 ];
