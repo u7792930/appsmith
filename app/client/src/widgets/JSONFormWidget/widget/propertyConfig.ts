@@ -6,6 +6,7 @@ import { ValidationTypes } from "constants/WidgetValidation";
 import { EvaluationSubstitutionType } from "constants/EvaluationConstants";
 import { EVALUATION_PATH } from "utils/DynamicBindingUtils";
 import type { ButtonWidgetProps } from "widgets/ButtonWidget/widget";
+import type { ButtonStyleProps } from "widgets/ButtonWidget/component";
 import type { JSONFormWidgetProps } from ".";
 import { FieldType, MAX_ALLOWED_FIELDS, ROOT_SCHEMA_KEY } from "../constants";
 import { ComputedSchemaStatus, computeSchema } from "./helper";
@@ -521,11 +522,12 @@ const generateButtonStyleControlsV2For = (prefix: string) => [
           propertyValue: string,
         ) => {
           // Replace the parent object to ensure React detects the change
+          const currentStyles = props[prefix as keyof JSONFormWidgetProps] as ButtonStyleProps;
           return [
             {
               propertyPath: prefix,
               propertyValue: {
-                ...props[prefix as keyof JSONFormWidgetProps],
+                ...currentStyles,
                 borderRadius: propertyValue,
               },
             },
@@ -550,11 +552,12 @@ const generateButtonStyleControlsV2For = (prefix: string) => [
           propertyValue: string,
         ) => {
           // Replace the parent object to ensure React detects the change
+          const currentStyles = props[prefix as keyof JSONFormWidgetProps] as ButtonStyleProps;
           return [
             {
               propertyPath: prefix,
               propertyValue: {
-                ...props[prefix as keyof JSONFormWidgetProps],
+                ...currentStyles,
                 boxShadow: propertyValue,
               },
             },
