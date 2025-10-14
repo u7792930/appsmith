@@ -522,7 +522,7 @@ const generateButtonStyleControlsV2For = (prefix: string) => [
           propertyValue: string,
         ) => {
           // Replace the parent object to ensure React detects the change
-          const currentStyles = props[prefix as keyof JSONFormWidgetProps] as ButtonStyleProps;
+          const currentStyles = (props[prefix as keyof JSONFormWidgetProps] as ButtonStyleProps) || {};
           return [
             {
               propertyPath: prefix,
@@ -552,7 +552,7 @@ const generateButtonStyleControlsV2For = (prefix: string) => [
           propertyValue: string,
         ) => {
           // Replace the parent object to ensure React detects the change
-          const currentStyles = props[prefix as keyof JSONFormWidgetProps] as ButtonStyleProps;
+          const currentStyles = (props[prefix as keyof JSONFormWidgetProps] as ButtonStyleProps) || {};
           return [
             {
               propertyPath: prefix,
