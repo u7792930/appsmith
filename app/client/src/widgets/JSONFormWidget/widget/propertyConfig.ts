@@ -515,6 +515,31 @@ const generateButtonStyleControlsV2For = (prefix: string) => [
         isBindProperty: true,
         isTriggerProperty: false,
         validation: { type: ValidationTypes.TEXT },
+        updateHook: (
+          props: JSONFormWidgetProps,
+          propertyPath: string,
+          propertyValue: string,
+        ) => {
+          // Get the parent object name from the property path (e.g., "submitButtonStyles" from "submitButtonStyles.borderRadius")
+          const parentProperty = prefix;
+          const parentStyles = props[parentProperty as keyof JSONFormWidgetProps];
+          
+          // Replace the parent styles object with a shallow copy containing the updated value
+          // This ensures React detects the change for proper reactivity
+          if (parentStyles && typeof parentStyles === "object") {
+            return [
+              {
+                propertyPath: parentProperty,
+                propertyValue: {
+                  ...parentStyles,
+                  borderRadius: propertyValue,
+                },
+              },
+            ];
+          }
+          
+          return [];
+        },
       },
       {
         propertyName: `${prefix}.boxShadow`,
@@ -527,6 +552,31 @@ const generateButtonStyleControlsV2For = (prefix: string) => [
         isTriggerProperty: false,
         validation: {
           type: ValidationTypes.TEXT,
+        },
+        updateHook: (
+          props: JSONFormWidgetProps,
+          propertyPath: string,
+          propertyValue: string,
+        ) => {
+          // Get the parent object name from the property path (e.g., "submitButtonStyles" from "submitButtonStyles.boxShadow")
+          const parentProperty = prefix;
+          const parentStyles = props[parentProperty as keyof JSONFormWidgetProps];
+          
+          // Replace the parent styles object with a shallow copy containing the updated value
+          // This ensures React detects the change for proper reactivity
+          if (parentStyles && typeof parentStyles === "object") {
+            return [
+              {
+                propertyPath: parentProperty,
+                propertyValue: {
+                  ...parentStyles,
+                  boxShadow: propertyValue,
+                },
+              },
+            ];
+          }
+          
+          return [];
         },
       },
     ],
